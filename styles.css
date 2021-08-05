@@ -1,5 +1,20 @@
+body {
+    background-image: linear-gradient(110deg, rgb(147, 239, 255), rgb(253, 127, 243));
+}
+
 h1 {
 
     font-family: monospace;
     color: red;
+}
+
+#planner-container {
+    padding: 20px;
+    background-color: white;
+    width: 350px;
+    height: 650px;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.42) 0px 11px 35px 2px;
+    text-align: center;
+    margin: auto;
 }
