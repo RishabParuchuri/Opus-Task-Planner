@@ -8,13 +8,57 @@ h1 {
     color: red;
 }
 
-#planner-container {
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+.planner-container {
     padding: 20px;
     background-color: white;
-    width: 350px;
-    height: 650px;
+    width: 325px;
+    height: 600px;
     border-radius: 30px;
     box-shadow: rgba(0, 0, 0, 0.42) 0px 11px 35px 2px;
     text-align: center;
     margin: auto;
+}
+
+.assignment {
+    background-color: black;
+    color: white;
+    height: 50px;
+    margin: 15px;
+    padding: 0;
+    border-radius: 5px;
+}
+
+.done-button, .trash-button {
+    float: right;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    border:none;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.done-button {
+    color:rgb(122, 255, 89);
+    border-radius: 0 3px 3px 0;
+
+}
+
+.trash-button {
+    color:rgb(247, 73, 73);
+}
+
+.done-button:hover {
+    color: black;
+    background-color:rgb(122, 255, 89);
+}
+
+.trash-button:hover {
+    color:black;
+    background-color:rgb(247, 73, 73);
 }

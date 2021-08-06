@@ -3,22 +3,36 @@
     <head>
         <meta charset="utf-8">
         <title>Homework Planner</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="styles.css">
         <script src="script.js"></script>
     </head>
     <body>
-        <div id="planner-container">
+        <div class="planner-container">
             <form action="">
                 <label>Assignment: </label>
                 <input type="text"><br>
                 <label>Due Date: </label>
-                <input type="datetime">
+                <input type="date">
+                <input type="submit">
             </form>
-            <div>
-                <ul>
-                    <li>Hello</li>
-                    <li>ByeBye</li>
-                    <li>Nothing</li>
+            <div class="assignment-container">
+                <ul class="assignment-list">
+                    <div class="assignment">
+                        <button class="done-button"><i class="fas fa-check"></i></button>
+                        <button class="trash-button"><i class="fas fa-times"></i></button>
+                        <li>Spanish Essay on object<br>Due: 19th August</li>
+                    </div>
+                <div class="assignment">
+                        <button class="done-button"><i class="fas fa-check"></i></button>
+                        <button class="trash-button"><i class="fas fa-times"></i></button>
+                        <li>Math Review Set -11b,14s<br>Due: 19th August</li>
+                </div>
+                <div class="assignment">
+                        <button class="done-button"><i class="fas fa-check"></i></button>
+                        <button class="trash-button"><i class="fas fa-times"></i></button>
+                        <li>Spanish Essay on object<br>Due: 19th August</li>
+                    </div>
                 </ul>
             </div>
         </div>
