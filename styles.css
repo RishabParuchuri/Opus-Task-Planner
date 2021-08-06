@@ -14,21 +14,49 @@ ul{
     list-style-type: none;
     padding: 0;
 }
+
+input:focus{
+    outline: none;
+}
+
+#assignment-text{
+    width: 225px;
+    margin: 5px 0 5px 5px;
+}
+
+
 .assignment-input {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     height: 30px;
-    width: 30%;
+    width: 300px;
     font-size: 15px;
     background-color: rgb(242, 242, 242);
-    padding: 0 10px;
+    padding: 0 ;
     text-align: center;
     border: none;
     margin: 5px;
+    color: gray;
 }
 
-#submit-button{
 
-    width: 50%;
+#submit-button{
+    margin: 5px 5px 5px 0 ;
+    height: 30px;
+    border: none;
+    width: 70px;
+    padding: 0;
+    font-size: 15px;
+    color: gray;
+
+}
+#submit-button:hover{
+    background-color: black;
+    color:white;
+}
+
+#submit-button:active{
+    background-color: gray;
+    color:white;
 }
 
 li {
