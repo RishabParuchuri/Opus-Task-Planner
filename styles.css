@@ -19,13 +19,13 @@ input:focus{
     outline: none;
 }
 
-#assignment-text{
+#assignmentText{
     width: 225px;
     margin: 5px 0 5px 5px;
 }
 
 
-.assignment-input {
+.assignmentInput {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     height: 30px;
     width: 300px;
@@ -39,7 +39,7 @@ input:focus{
 }
 
 
-#submit-button{
+#submitButton{
     margin: 5px 5px 5px 0 ;
     height: 30px;
     border: none;
@@ -49,12 +49,12 @@ input:focus{
     color: gray;
 
 }
-#submit-button:hover{
+#submitButton:hover{
     background-color: black;
     color:white;
 }
 
-#submit-button:active{
+#submitButton:active{
     background-color: gray;
     color:white;
 }
