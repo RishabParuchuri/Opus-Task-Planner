@@ -5,6 +5,7 @@ var submitButton = document.querySelector('#submitButton');
 var assigmentList = document.querySelector(".assignmentList");
 
 submitButton.addEventListener('click', addAssignment)
+assigmentList.addEventListener('click', deleteFinish)
 
 function addAssignment(event) {
     event.preventDefault();
@@ -13,11 +14,11 @@ function addAssignment(event) {
     assigmentDiv.classList.add("assignment");
 // Create a list element with the assigment name
     var assigmentTitle = document.createElement("li");
-    assigmentTitle.innerText = "hey";
+    assigmentTitle.innerText = assignmentText.value;
 // Create a list element with the date 
     var assigmentDate = document.createElement("li");
     assigmentDate.classList.add("date");
-    assigmentDate.innerText = "20th August";
+    assigmentDate.innerText = "Due: " + dateInput.value;
 // create both the finish and delete buttons
     var checkButton = document.createElement("button");
     checkButton.innerHTML = "<i class='fas fa-check'></i>";
@@ -32,6 +33,22 @@ function addAssignment(event) {
     assigmentDiv.appendChild(assigmentTitle);
     assigmentDiv.appendChild(assigmentDate);
     assigmentList.appendChild(assigmentDiv);
-
+    // assignmentText.value = "";
+    // dateInput.value = false;
 }
 
+function deleteFinish(e){
+    var item = e.target;
+
+    if(item.classList[0] === "trash-button"){
+        item = item.parentElement;
+        item.remove();
+    }
+
+    if(item.classList[0] === "done-button"){
+        item = item.parentElement;
+        item.setAttribute("id", 'completed');
+        item.children[2].style.textDecoration = "line-through"
+        item.children[3].innerText = "COMPLETED";
+    }
+}
