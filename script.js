@@ -51,6 +51,9 @@ function deleteFinish(e){
 
 function deleteAnimation(item) {
     item = item.parentElement;
+    var audio = new Audio('swoosh.mp3');
+    audio.play();
+    delete audio
     item.classList.add('fall');
     item.addEventListener("transitionend", function(){
     item.remove();
