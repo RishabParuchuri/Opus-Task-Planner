@@ -41,14 +41,34 @@ function deleteFinish(e){
     var item = e.target;
 
     if(item.classList[0] === "trash-button"){
-        item = item.parentElement;
-        item.remove();
+        item = deleteAnimation(item);
     }
 
     if(item.classList[0] === "done-button"){
-        item = item.parentElement;
-        item.setAttribute("id", 'completed');
-        item.children[2].style.textDecoration = "line-through"
-        item.children[3].innerText = "COMPLETED";
+        item = doneAnimation(item);
     }
+}
+
+function deleteAnimation(item) {
+    item = item.parentElement;
+    item.classList.add('fall');
+    item.addEventListener("transitionend", function(){
+    item.remove();
+    })
+    return item;
+}
+
+function doneAnimation(item) {
+    item = item.parentElement;
+    item.setAttribute("id", 'completed');
+    item.children[2].style.textDecoration = "line-through";
+    item.children[3].innerText = "COMPLETED";
+    var audio = new Audio('finish-sound.mp3');
+    audio.play();
+    delete audio
+    item.classList.add('fallDone');
+    item.addEventListener("transitionend", function(){
+        item.classList.remove('fallDone');
+        })
+    return item;
 }
