@@ -7,7 +7,13 @@ var assigmentList = document.querySelector(".assignmentList");
 submitButton.addEventListener('click', addAssignment)
 assigmentList.addEventListener('click', deleteFinish)
 
-
+class Homework {
+    constructor(title, date) {
+      this.title = title;
+      this.date = date;
+      this.completionStatus = false;
+    }
+  }
 
 function addAssignment(event) {
     event.preventDefault();
