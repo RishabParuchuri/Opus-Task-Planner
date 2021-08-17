@@ -3,6 +3,7 @@ body {
     margin: 0;
     height: 600px;
     width: 360px;
+    overflow: hidden;
 }
 
 ul{
