@@ -7,32 +7,21 @@ var assigmentList = document.querySelector(".assignmentList");
 submitButton.addEventListener('click', addAssignment)
 assigmentList.addEventListener('click', deleteFinish)
 
+class Homework {
+    constructor(title, date) {
+      this.title = title;
+      this.date = date;
+      this.completionStatus = false;
+    }
+  }
+
 function addAssignment(event) {
     event.preventDefault();
 // Stop page from refreshing an create div that contains the assignment
-    var assigmentDiv = document.createElement("div");
-    assigmentDiv.classList.add("assignment");
-// Create a list element with the assigment name
-    var assigmentTitle = document.createElement("li");
-    assigmentTitle.innerText = assignmentText.value;
-// Create a list element with the date 
-    var assigmentDate = document.createElement("li");
-    assigmentDate.classList.add("date");
-    assigmentDate.innerText = "Due: " + dateInput.value;
-// create both the finish and delete buttons
-    var checkButton = document.createElement("button");
-    checkButton.innerHTML = "<i class='fas fa-check'></i>";
-    checkButton.classList.add("done-button");
-
-    var deleteButton = document.createElement("button");
-    deleteButton.innerHTML = "<i class='fas fa-times'></i>";
-    deleteButton.classList.add("trash-button");
+    var { assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate } = createElements();
 // append all the elements to their respective containers
-    assigmentDiv.appendChild(checkButton);
-    assigmentDiv.appendChild(deleteButton);
-    assigmentDiv.appendChild(assigmentTitle);
-    assigmentDiv.appendChild(assigmentDate);
-    assigmentList.appendChild(assigmentDiv);
+    
+    addElements(assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate);
     // assignmentText.value = "";
     // dateInput.value = false;
 }
@@ -74,4 +63,32 @@ function doneAnimation(item) {
         item.classList.remove('fallDone');
         })
     return item;
+}
+
+function createElements() {
+    var assigmentDiv = document.createElement("div");
+    assigmentDiv.classList.add("assignment");
+    // Create a list element with the assigment name
+    var assigmentTitle = document.createElement("li");
+    assigmentTitle.innerText = assignmentText.value;
+    // Create a list element with the date 
+    var assigmentDate = document.createElement("li");
+    assigmentDate.classList.add("date");
+    assigmentDate.innerText = "Due: " + dateInput.value;
+    // create both the finish and delete buttons
+    var checkButton = document.createElement("button");
+    checkButton.innerHTML = "<i class='fas fa-check'></i>";
+    checkButton.classList.add("done-button");
+    var deleteButton = document.createElement("button");
+    deleteButton.innerHTML = "<i class='fas fa-times'></i>";
+    deleteButton.classList.add("trash-button");
+    return { assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate };
+}
+
+function addElements(assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate) {
+    assigmentDiv.appendChild(checkButton);
+    assigmentDiv.appendChild(deleteButton);
+    assigmentDiv.appendChild(assigmentTitle);
+    assigmentDiv.appendChild(assigmentDate);
+    assigmentList.appendChild(assigmentDiv);
 }
