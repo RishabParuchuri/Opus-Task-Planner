@@ -24,7 +24,7 @@ input:focus{
 .assignmentInput {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     height: 30px;
-    width: 300px;
+    width: 290px;
     font-size: 15px;
     background-color: rgb(242, 242, 242);
     padding: 0 ;
@@ -83,7 +83,7 @@ li {
     margin: 10px;
 }
 .assignment-container {
-    height: 480px;
+    height: 460px;
     overflow: scroll;
     margin: 0px;
 }
