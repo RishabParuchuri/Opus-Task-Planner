@@ -3,9 +3,7 @@
     "name": "Homework Planner",
     "version": "1.0",
 
-    "background": {
-        "service_worker": "script.js"
-      },
+
 
     "action": {
         "default_title": "Homework Planner",
