@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Homework Planner",
     "version": "1.0",
-
+    "description" : "This is a simple homework planner",
 
 
     "action": {
