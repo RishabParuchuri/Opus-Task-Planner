@@ -9,45 +9,55 @@ assigmentList.addEventListener('click', deleteFinish)
 
 class Homework {
     constructor(title, date) {
-      this.title = title;
-      this.date = date;
-      this.completionStatus = false;
+        this.title = title;
+        this.date = date;
+        this.completionStatus = false;
     }
-  }
+}
 
 function addAssignment(event) {
     event.preventDefault();
-// Stop page from refreshing an create div that contains the assignment
-    var { assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate } = createElements();
-// append all the elements to their respective containers
-    
+    // Stop page from refreshing an create div that contains the assignment
+    var {
+        assigmentDiv,
+        checkButton,
+        deleteButton,
+        assigmentTitle,
+        assigmentDate
+    } = createElements();
+    // append all the elements to their respective containers
+
     addElements(assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate);
     // assignmentText.value = "";
     // dateInput.value = false;
 }
 
-function deleteFinish(e){
+function deleteFinish(e) {
     var item = e.target;
 
-    if(item.classList[0] === "trash-button"){
+    if (item.classList[0] === "trash-button") {
         item = deleteAnimation(item);
     }
 
-    if(item.classList[0] === "done-button"){
+    if (item.classList[0] === "done-button") {
         item = doneAnimation(item);
     }
 }
 
 function deleteAnimation(item) {
     item = item.parentElement;
-    var audio = new Audio('swoosh.mp3');
-    audio.play();
-    delete audio
+    playDeleteAudio();
     item.classList.add('fall');
-    item.addEventListener("transitionend", function(){
-    item.remove();
+    item.addEventListener("transitionend", function () {
+        item.remove();
     })
     return item;
+}
+
+function playDeleteAudio() {
+    var audio = new Audio('swoosh.mp3');
+    audio.play();
+    delete audio;
 }
 
 function doneAnimation(item) {
@@ -55,14 +65,18 @@ function doneAnimation(item) {
     item.setAttribute("id", 'completed');
     item.children[2].style.textDecoration = "line-through";
     item.children[3].innerText = "COMPLETED";
+    playAudio();
+    item.classList.add('fallDone');
+    item.addEventListener("transitionend", function () {
+        item.classList.remove('fallDone');
+    })
+    return item;
+}
+
+function playAudio() {
     var audio = new Audio('finish-sound.mp3');
     audio.play();
-    delete audio
-    item.classList.add('fallDone');
-    item.addEventListener("transitionend", function(){
-        item.classList.remove('fallDone');
-        })
-    return item;
+    delete audio;
 }
 
 function createElements() {
@@ -82,7 +96,13 @@ function createElements() {
     var deleteButton = document.createElement("button");
     deleteButton.innerHTML = "<i class='fas fa-times'></i>";
     deleteButton.classList.add("trash-button");
-    return { assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate };
+    return {
+        assigmentDiv,
+        checkButton,
+        deleteButton,
+        assigmentTitle,
+        assigmentDate
+    };
 }
 
 function addElements(assigmentDiv, checkButton, deleteButton, assigmentTitle, assigmentDate) {
