@@ -112,3 +112,14 @@ function addElements(assigmentDiv, checkButton, deleteButton, assigmentTitle, as
     assigmentDiv.appendChild(assigmentDate);
     assigmentList.appendChild(assigmentDiv);
 }
+
+function saveLocal(assigment){
+    let assigments;
+    if (localStorage.getItem("assignments") === null) {
+        assigments = [];
+    } else{
+        assigments = JSON.parse(localStorage.getItem("assigments"))
+    }
+    assigments.push(assigment);
+    localStorage.setItem("assigments", JSON.stringify(assigments))
+}
