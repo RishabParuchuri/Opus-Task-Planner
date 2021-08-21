@@ -45,6 +45,7 @@ function deleteAnimation(item) {
     audio.play();
     delete audio
     item.classList.add('fall');
+    removeAssignment(item);
     item.addEventListener("transitionend", function(){
     item.remove();
     })
@@ -102,35 +103,39 @@ function addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, 
 
 function saveLocal(assignment){
     let assignments;
-    if (localStorage.getItem("assignments") === null) {
-        assignments = [];
-    } else{
-        assignments = JSON.parse(localStorage.getItem("assignments"))
-    }
+    assignments = checkLocal(assignments);
     assignments.push(assignment);
+    localStorage.setItem("assignments", JSON.stringify(assignments));
+}
+
+function removeAssignment(assignment){
+    let assignments;
+    assignments = checkLocal(assignments);
+    var assignmentIndex = assignment.children[2].innerText;
+    assignments.forEach(function(assignment, index){
+        if(assignment.title === assignmentIndex){
+            assignmentIndex = index;
+        }
+    });
+    assignments.splice(assignmentIndex, 1);
     localStorage.setItem("assignments", JSON.stringify(assignments));
 }
 
 function getAssignments(){
     let assignments;
-    if (localStorage.getItem("assignments") === null) {
-        assignments = [];
-    } else{
-        assignments = JSON.parse(localStorage.getItem("assignments"))
-    }
+    assignments = checkLocal(assignments);
     assignments.forEach(function(assignment){
         var assignmentDiv = document.createElement("div");
         assignmentDiv.classList.add("assignment");
         // Create a list element with the assignment name
         var assignmentTitle = document.createElement("li");
         assignmentTitle.innerText = assignment.title;
-    
+
         // Create a list element with the date 
         var assignmentDate = document.createElement("li");
         assignmentDate.classList.add("date");
         assignmentDate.innerText = "Due: " + assignment.date;
     
-
         // create both the finish and delete buttons
         var checkButton = document.createElement("button");
         checkButton.innerHTML = "<i class='fas fa-check'></i>";
@@ -140,4 +145,14 @@ function getAssignments(){
         deleteButton.classList.add("trash-button");
         addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
     });
+}
+
+function checkLocal(assignments) {
+    if (localStorage.getItem("assignments") === null) {
+        assignments = [];
+    }
+    else {
+        assignments = JSON.parse(localStorage.getItem("assignments"));
+    }
+    return assignments;
 }
