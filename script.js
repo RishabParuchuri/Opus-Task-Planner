@@ -59,6 +59,7 @@ function doneAnimation(item) {
     item.children[3].innerText = "COMPLETED";
     var audio = new Audio('finish-sound.mp3');
     audio.play();
+    getAssignments();
     delete audio
     item.classList.add('fallDone');
     item.addEventListener("transitionend", function(){
@@ -112,6 +113,7 @@ function removeAssignment(assignment){
     let assignments;
     assignments = checkLocal(assignments);
     var assignmentIndex = assignment.children[2].innerText;
+    // TODO refactor this function
     assignments.forEach(function(assignment, index){
         if(assignment.title === assignmentIndex){
             assignmentIndex = index;
@@ -122,6 +124,8 @@ function removeAssignment(assignment){
 }
 
 function getAssignments(){
+    var divClear = document.getElementsByClassName("assignmentList")[0];
+    divClear.innerHTML = "";
     let assignments;
     assignments = checkLocal(assignments);
     assignments.forEach(function(assignment){
@@ -156,3 +160,5 @@ function checkLocal(assignments) {
     }
     return assignments;
 }
+
+// function sortByDate
