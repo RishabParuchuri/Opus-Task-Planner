@@ -23,8 +23,9 @@ function addAssignment(event) {
 // append all the elements to their respective containers
     
     addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
-    // assignmentText.value = "";
-    // dateInput.value = false;
+    sortByDate();
+    assignmentText.value = "";
+    dateInput.value = false;
 }
 
 function deleteFinish(e){
@@ -59,7 +60,6 @@ function doneAnimation(item) {
     item.children[3].innerText = "COMPLETED";
     var audio = new Audio('finish-sound.mp3');
     audio.play();
-    getAssignments();
     delete audio
     item.classList.add('fallDone');
     item.addEventListener("transitionend", function(){
@@ -161,4 +161,18 @@ function checkLocal(assignments) {
     return assignments;
 }
 
-// function sortByDate
+function sortByDate(){
+    let assignments;
+    assignments = checkLocal(assignments);
+    assignments.sort(function(x, y) {
+        if (x.date < y.date) {
+          return -1;
+        }
+        if (x.date > y.date) {
+          return 1;
+        }
+        return 0;
+      });
+    localStorage.setItem("assignments", JSON.stringify(assignments));
+    getAssignments();
+}
