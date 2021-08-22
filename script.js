@@ -78,7 +78,7 @@ function createElements() {
     // Create a list element with the date 
     var assignmentDate = document.createElement("li");
     assignmentDate.classList.add("date");
-    assignmentDate.innerText = "Due: " + dateInput.value;
+    assignmentDate.innerText = "Due: " + dateFormat(dateInput.value);
 
     // Add items to localStorage
     let temp = new Homework(assignmentText.value, dateInput.value);
@@ -138,7 +138,7 @@ function getAssignments(){
         // Create a list element with the date 
         var assignmentDate = document.createElement("li");
         assignmentDate.classList.add("date");
-        assignmentDate.innerText = "Due: " + assignment.date;
+        assignmentDate.innerText = "Due: " + dateFormat(assignment.date);
     
         // create both the finish and delete buttons
         var checkButton = document.createElement("button");
@@ -175,4 +175,42 @@ function sortByDate(){
       });
     localStorage.setItem("assignments", JSON.stringify(assignments));
     getAssignments();
+}
+
+function dateFormat(date){
+    var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var output = "";
+    if (date.slice(8) === "01" || date.slice(8) === "21" || date.slice(8) === "31") {
+        if(date.slice(8, 9) === "0"){
+            output = output.concat(date.slice(9))
+        } else{
+            output = output.concat(date.slice(8))
+        }
+        output = output.concat("st ")
+    } else if (date.slice(8) === "02" || date.slice(8) === "22") {
+        if(date.slice(8, 9) === "0"){
+            output = output.concat(date.slice(9))
+        } else{
+            output = output.concat(date.slice(8))
+        }
+        output = output.concat("nd ")
+    } else if (date.slice(8) === "03" || date.slice(8) === "23") {
+        if(date.slice(8, 9) === "0"){
+            output = output.concat(date.slice(9))
+        } else{
+            output = output.concat(date.slice(8))
+        }
+        output = output.concat("rd ")
+    } else {
+        if(date.slice(8, 9) === "0"){
+            output = output.concat(date.slice(9))
+        } else{
+            output = output.concat(date.slice(8))
+        }
+        output = output.concat("th ")
+    }
+    output = output.concat(months[parseInt(date.slice(5, 7)) - 1]);
+    output = output.concat(", ")
+    output = output.concat(date.slice(0, 4));
+    return output;
 }
