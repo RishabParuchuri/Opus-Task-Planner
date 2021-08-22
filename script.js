@@ -10,32 +10,38 @@ document.addEventListener("DOMContentLoaded", getAssignments);
 
 class Homework {
     constructor(title, date) {
-      this.title = title;
-      this.date = date;
-      this.completionStatus = false;
+        this.title = title;
+        this.date = date;
+        this.completionStatus = false;
     }
-  }
+}
 
 function addAssignment(event) {
     event.preventDefault();
-// Stop page from refreshing an create div that contains the assignment
-    var { assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate } = createElements();
-// append all the elements to their respective containers
-    
+    // Stop page from refreshing an create div that contains the assignment
+    var {
+        assignmentDiv,
+        checkButton,
+        deleteButton,
+        assignmentTitle,
+        assignmentDate
+    } = createElements();
+    // append all the elements to their respective containers
+
     addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
     sortByDate();
     assignmentText.value = "";
     dateInput.value = false;
 }
 
-function deleteFinish(e){
+function deleteFinish(e) {
     var item = e.target;
 
-    if(item.classList[0] === "trash-button"){
+    if (item.classList[0] === "trash-button") {
         item = deleteAnimation(item);
     }
 
-    if(item.classList[0] === "done-button"){
+    if (item.classList[0] === "done-button") {
         item = doneAnimation(item);
     }
 }
@@ -47,8 +53,8 @@ function deleteAnimation(item) {
     delete audio
     item.classList.add('fall');
     removeAssignment(item);
-    item.addEventListener("transitionend", function(){
-    item.remove();
+    item.addEventListener("transitionend", function () {
+        item.remove();
     })
     return item;
 }
@@ -62,9 +68,9 @@ function doneAnimation(item) {
     audio.play();
     delete audio
     item.classList.add('fallDone');
-    item.addEventListener("transitionend", function(){
+    item.addEventListener("transitionend", function () {
         item.classList.remove('fallDone');
-        })
+    })
     return item;
 }
 
@@ -83,7 +89,7 @@ function createElements() {
     // Add items to localStorage
     let temp = new Homework(assignmentText.value, dateInput.value);
     saveLocal(temp);
-    
+
     // create both the finish and delete buttons
     var checkButton = document.createElement("button");
     checkButton.innerHTML = "<i class='fas fa-check'></i>";
@@ -91,7 +97,13 @@ function createElements() {
     var deleteButton = document.createElement("button");
     deleteButton.innerHTML = "<i class='fas fa-times'></i>";
     deleteButton.classList.add("trash-button");
-    return { assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate };
+    return {
+        assignmentDiv,
+        checkButton,
+        deleteButton,
+        assignmentTitle,
+        assignmentDate
+    };
 }
 
 function addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate) {
@@ -102,20 +114,20 @@ function addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, 
     assignmentList.appendChild(assignmentDiv);
 }
 
-function saveLocal(assignment){
+function saveLocal(assignment) {
     let assignments;
     assignments = checkLocal(assignments);
     assignments.push(assignment);
     localStorage.setItem("assignments", JSON.stringify(assignments));
 }
 
-function removeAssignment(assignment){
+function removeAssignment(assignment) {
     let assignments;
     assignments = checkLocal(assignments);
     var assignmentIndex = assignment.children[2].innerText;
     // TODO refactor this function
-    assignments.forEach(function(assignment, index){
-        if(assignment.title === assignmentIndex){
+    assignments.forEach(function (assignment, index) {
+        if (assignment.title === assignmentIndex) {
             assignmentIndex = index;
         }
     });
@@ -123,12 +135,12 @@ function removeAssignment(assignment){
     localStorage.setItem("assignments", JSON.stringify(assignments));
 }
 
-function getAssignments(){
+function getAssignments() {
     var divClear = document.getElementsByClassName("assignmentList")[0];
     divClear.innerHTML = "";
     let assignments;
     assignments = checkLocal(assignments);
-    assignments.forEach(function(assignment){
+    assignments.forEach(function (assignment) {
         var assignmentDiv = document.createElement("div");
         assignmentDiv.classList.add("assignment");
         // Create a list element with the assignment name
@@ -139,7 +151,7 @@ function getAssignments(){
         var assignmentDate = document.createElement("li");
         assignmentDate.classList.add("date");
         assignmentDate.innerText = "Due: " + dateFormat(assignment.date);
-    
+
         // create both the finish and delete buttons
         var checkButton = document.createElement("button");
         checkButton.innerHTML = "<i class='fas fa-check'></i>";
@@ -154,57 +166,56 @@ function getAssignments(){
 function checkLocal(assignments) {
     if (localStorage.getItem("assignments") === null) {
         assignments = [];
-    }
-    else {
+    } else {
         assignments = JSON.parse(localStorage.getItem("assignments"));
     }
     return assignments;
 }
 
-function sortByDate(){
+function sortByDate() {
     let assignments;
     assignments = checkLocal(assignments);
-    assignments.sort(function(x, y) {
+    assignments.sort(function (x, y) {
         if (x.date < y.date) {
-          return -1;
+            return -1;
         }
         if (x.date > y.date) {
-          return 1;
+            return 1;
         }
         return 0;
-      });
+    });
     localStorage.setItem("assignments", JSON.stringify(assignments));
     getAssignments();
 }
 
-function dateFormat(date){
+function dateFormat(date) {
     var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var output = "";
     if (date.slice(8) === "01" || date.slice(8) === "21" || date.slice(8) === "31") {
-        if(date.slice(8, 9) === "0"){
+        if (date.slice(8, 9) === "0") {
             output = output.concat(date.slice(9))
-        } else{
+        } else {
             output = output.concat(date.slice(8))
         }
         output = output.concat("st ")
     } else if (date.slice(8) === "02" || date.slice(8) === "22") {
-        if(date.slice(8, 9) === "0"){
+        if (date.slice(8, 9) === "0") {
             output = output.concat(date.slice(9))
-        } else{
+        } else {
             output = output.concat(date.slice(8))
         }
         output = output.concat("nd ")
     } else if (date.slice(8) === "03" || date.slice(8) === "23") {
-        if(date.slice(8, 9) === "0"){
+        if (date.slice(8, 9) === "0") {
             output = output.concat(date.slice(9))
-        } else{
+        } else {
             output = output.concat(date.slice(8))
         }
         output = output.concat("rd ")
     } else {
-        if(date.slice(8, 9) === "0"){
+        if (date.slice(8, 9) === "0") {
             output = output.concat(date.slice(9))
-        } else{
+        } else {
             output = output.concat(date.slice(8))
         }
         output = output.concat("th ")
