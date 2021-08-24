@@ -61,16 +61,22 @@ function deleteAnimation(item) {
 
 function doneAnimation(item) {
     item = item.parentElement;
-    item.setAttribute("id", 'completed');
-    item.children[2].style.textDecoration = "line-through";
-    item.children[3].innerText = "COMPLETED";
-    var audio = new Audio('finish-sound.mp3');
-    audio.play();
-    delete audio
-    item.classList.add('fallDone');
-    item.addEventListener("transitionend", function () {
-        item.classList.remove('fallDone');
-    })
+    if (item.hasAttribute("id")){
+        item.removeAttribute("id");
+        item.children[2].style.textDecoration = "none";
+
+    } else{
+        item.setAttribute("id", 'completed');
+        item.children[2].style.textDecoration = "line-through";
+        item.children[3].innerText = "COMPLETED";
+        var audio = new Audio('finish-sound.mp3');
+        audio.play();
+        delete audio
+        item.classList.add('fallDone');
+        item.addEventListener("transitionend", function () {
+            item.classList.remove('fallDone');
+        })
+    }
     return item;
 }
 
