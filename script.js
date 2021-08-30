@@ -61,9 +61,18 @@ function deleteAnimation(item) {
 
 function doneAnimation(item) {
     item = item.parentElement;
+    let assignments;
+    assignments = checkLocal(assignments);
     if (item.hasAttribute("id")){
         item.removeAttribute("id");
         item.children[2].style.textDecoration = "none";
+        var assignmentIndex = item.children[2].innerText;
+        assignments.forEach(function(assignment) {
+            if (assignment.title === assignmentIndex) {
+                assignment.completionStatus = false;
+                item.children[3].innerText = "Due: " + dateFormat(assignment.date);
+            }
+        });
 
     } else{
         item.setAttribute("id", 'completed');
@@ -76,7 +85,14 @@ function doneAnimation(item) {
         item.addEventListener("transitionend", function () {
             item.classList.remove('fallDone');
         })
+        var assignmentIndex = item.children[2].innerText;
+        assignments.forEach(function(assignment) {
+            if (assignment.title === assignmentIndex) {
+                assignment.completionStatus = true;
+            }
+        });
     }
+    localStorage.setItem("assignments", JSON.stringify(assignments));
     return item;
 }
 
@@ -131,7 +147,6 @@ function removeAssignment(assignment) {
     let assignments;
     assignments = checkLocal(assignments);
     var assignmentIndex = assignment.children[2].innerText;
-    // TODO refactor this function
     assignments.forEach(function (assignment, index) {
         if (assignment.title === assignmentIndex) {
             assignmentIndex = index;
@@ -165,7 +180,13 @@ function getAssignments() {
         var deleteButton = document.createElement("button");
         deleteButton.innerHTML = "<i class='fas fa-times'></i>";
         deleteButton.classList.add("trash-button");
+
         addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
+        if(assignment.completionStatus === true){
+            assignmentDiv.setAttribute("id", 'completed');
+            assignmentDiv.children[2].style.textDecoration = "line-through";
+            assignmentDiv.children[3].innerText = "COMPLETED";
+        }
     });
 }
 
