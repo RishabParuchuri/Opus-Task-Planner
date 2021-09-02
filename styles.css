@@ -102,7 +102,8 @@ li {
 }
 
 .done-button,
-.trash-button {
+.trash-button,
+.redo-button {
     float: right;
     width: 50px;
     height: 75px;
@@ -155,4 +156,14 @@ i {
     background-color: rgb(118, 194, 99);
     color: rgb(118, 194, 99);
     ;
+}
+
+#redo-button {
+    color: rgb(243, 183, 54);;
+    border-radius: 0 3px 3px 0;
+
+}
+#redo-button:hover {
+    color: black;
+    background-color: rgb(243, 183, 54);
 }
