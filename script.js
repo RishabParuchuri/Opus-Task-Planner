@@ -18,6 +18,7 @@ class Homework {
 
 function addAssignment(event) {
     event.preventDefault();
+    if (assignmentText.value != "" && dateInput.value != false){
     // Stop page from refreshing an create div that contains the assignment
     var {
         assignmentDiv,
@@ -31,7 +32,7 @@ function addAssignment(event) {
     addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
     sortByDate();
     assignmentText.value = "";
-    dateInput.value = false;
+    dateInput.value = false;}
 }
 
 function deleteFinish(e) {
@@ -67,6 +68,14 @@ function doneAnimation(item) {
         item.removeAttribute("id");
         item.children[2].style.textDecoration = "none";
         var assignmentIndex = item.children[2].innerText;
+        item.addEventListener("transitionend", function () {
+            item.children[0].innerHTML = "<i class='fas fa-check'></i>"
+            item.children[0].setAttribute("id", "done-button") 
+
+        })
+
+        // item.children[0].removeAttributeNode(item.children[0].getAttribute("id"));
+
         assignments.forEach(function(assignment) {
             if (assignment.title === assignmentIndex) {
                 assignment.completionStatus = false;
@@ -84,6 +93,10 @@ function doneAnimation(item) {
         item.classList.add('fallDone');
         item.addEventListener("transitionend", function () {
             item.classList.remove('fallDone');
+        })
+        item.addEventListener("transitionend", function () {
+            item.children[0].innerHTML = "<i class='fas fa-arrow-left'></i>"
+            item.children[0].setAttribute("id", "redo-button") 
         })
         var assignmentIndex = item.children[2].innerText;
         assignments.forEach(function(assignment) {
