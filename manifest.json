@@ -3,11 +3,21 @@
     "name": "Homework Planner",
     "version": "1.0",
     "description": "This is a simple homework planner",
-
+    
+    "icons": {
+        "16": "/images/icon16.png",
+        "48": "/images/icon48.png",
+        "128": "/images/icon128.png"
+    },
 
     "action": {
         "default_title": "Homework Planner",
-        "default_popup": "index.html"
+        "default_popup": "index.html",
+        "default_icon": {
+            "16": "/images/icon16.png",
+            "48": "/images/icon48.png",
+            "128": "/images/icon128.png"
+        }
     },
 
     "permissions": ["storage"]
