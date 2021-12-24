@@ -18,6 +18,15 @@ class Homework {
 
 function addAssignment(event) {
     event.preventDefault();
+    let assignments;
+    assignments = checkLocal(assignments);
+    assignments.forEach(function(assignment) {
+        if (assignment.title === assignmentText.value && dateInput.value === assignment.date) {
+            alert("You have entered a duplicate assignment. Please change the title or date of the assignment.")
+            assignmentText.value = "";
+            dateInput.value = null;
+        }
+    });
     if (assignmentText.value != "" && dateInput.value != false){
     // Stop page from refreshing an create div that contains the assignment
     var {
@@ -32,7 +41,7 @@ function addAssignment(event) {
     addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
     sortByDate();
     assignmentText.value = "";
-    dateInput.value = false;}
+    dateInput.value = null;}
 }
 
 function deleteFinish(e) {
