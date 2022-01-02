@@ -20,28 +20,29 @@ function addAssignment(event) {
     event.preventDefault();
     let assignments;
     assignments = checkLocal(assignments);
-    assignments.forEach(function(assignment) {
+    assignments.forEach(function (assignment) {
         if (assignment.title === assignmentText.value && dateInput.value === assignment.date) {
             alert("You have entered a duplicate assignment. Please change the title or date of the assignment.")
             assignmentText.value = "";
             dateInput.value = null;
         }
     });
-    if (assignmentText.value != "" && dateInput.value != false){
-    // Stop page from refreshing an create div that contains the assignment
-    var {
-        assignmentDiv,
-        checkButton,
-        deleteButton,
-        assignmentTitle,
-        assignmentDate
-    } = createElements();
-    // append all the elements to their respective containers
+    if (assignmentText.value != "" && dateInput.value != false) {
+        // Stop page from refreshing an create div that contains the assignment
+        var {
+            assignmentDiv,
+            checkButton,
+            deleteButton,
+            assignmentTitle,
+            assignmentDate
+        } = createElements();
+        // append all the elements to their respective containers
 
-    addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
-    sortByDate();
-    assignmentText.value = "";
-    dateInput.value = null;}
+        addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
+        sortByDate();
+        assignmentText.value = "";
+        dateInput.value = null;
+    }
 }
 
 function deleteFinish(e) {
@@ -73,26 +74,26 @@ function doneAnimation(item) {
     item = item.parentElement;
     let assignments;
     assignments = checkLocal(assignments);
-    if (item.hasAttribute("id")){
+    if (item.hasAttribute("id")) {
         item.removeAttribute("id");
         item.children[2].style.textDecoration = "none";
         var assignmentIndex = item.children[2].innerText;
         item.addEventListener("transitionend", function () {
             item.children[0].innerHTML = "<i class='fas fa-check'></i>"
-            item.children[0].setAttribute("id", "done-button") 
+            item.children[0].setAttribute("id", "done-button")
 
         })
 
         // item.children[0].removeAttributeNode(item.children[0].getAttribute("id"));
 
-        assignments.forEach(function(assignment) {
+        assignments.forEach(function (assignment) {
             if (assignment.title === assignmentIndex) {
                 assignment.completionStatus = false;
                 item.children[3].innerText = "Due: " + dateFormat(assignment.date);
             }
         });
 
-    } else{
+    } else {
         item.setAttribute("id", 'completed');
         item.children[2].style.textDecoration = "line-through";
         item.children[3].innerText = "COMPLETED";
@@ -105,10 +106,10 @@ function doneAnimation(item) {
         })
         item.addEventListener("transitionend", function () {
             item.children[0].innerHTML = "<i class='fas fa-arrow-left'></i>"
-            item.children[0].setAttribute("id", "redo-button") 
+            item.children[0].setAttribute("id", "redo-button")
         })
         var assignmentIndex = item.children[2].innerText;
-        assignments.forEach(function(assignment) {
+        assignments.forEach(function (assignment) {
             if (assignment.title === assignmentIndex) {
                 assignment.completionStatus = true;
             }
@@ -204,7 +205,7 @@ function getAssignments() {
         deleteButton.classList.add("trash-button");
 
         addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
-        if(assignment.completionStatus === true){
+        if (assignment.completionStatus === true) {
             assignmentDiv.setAttribute("id", 'completed');
             assignmentDiv.children[2].style.textDecoration = "line-through";
             assignmentDiv.children[3].innerText = "COMPLETED";

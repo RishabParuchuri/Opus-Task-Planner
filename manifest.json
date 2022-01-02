@@ -1,9 +1,9 @@
 {
     "manifest_version": 3,
-    "name": "Homework Planner",
-    "version": "1.0",
-    "description": "This is a simple homework planner",
-    
+    "name": "Opus Homework Planner",
+    "version": "1.0.1",
+    "description": "Opus Homework Planner is a vibrant and satisfying to prioritize your tasks",
+
     "icons": {
         "16": "/images/icon16.png",
         "48": "/images/icon48.png",
@@ -18,7 +18,5 @@
             "48": "/images/icon48.png",
             "128": "/images/icon128.png"
         }
-    },
-
-    "permissions": ["storage"]
+    }
 }
