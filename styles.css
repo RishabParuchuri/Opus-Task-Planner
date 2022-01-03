@@ -4,6 +4,7 @@ body {
     height: 590px;
     width: 360px;
     overflow: hidden;
+    user-select: none;
 }
 
 ul {
