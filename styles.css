@@ -17,13 +17,13 @@ input:focus {
 
 }
 
-#assignmentText {
+#taskText {
     width: 215px;
     margin: 5px 0 5px 5px;
 }
 
 
-.assignmentInput {
+.taskInput {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     height: 30px;
     width: 290px;
@@ -65,7 +65,17 @@ li {
     font-weight: 400;
     font-size: 13px;
     margin: 0;
-
+    word-wrap: break-word;
+    display: block;
+    display: -webkit-box;
+    max-width: 100%;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 50px;
+    width: 150px;
+    
 }
 
 .name {
@@ -93,13 +103,13 @@ li {
     margin: 10px;
 }
 
-.assignment-container {
+.task-container {
     height: 410px;
     overflow: scroll;
     margin: 5px 0 0 0;
 }
 
-.assignment {
+.task {
     background-color: rgb(242, 242, 242);
     color: black;
     height: 75px;

@@ -1,11 +1,11 @@
 // alert("Script working")
-var assignmentText = document.getElementById('assignmentText');
+var taskText = document.getElementById('taskText');
 var dateInput = document.querySelector('input[type="date"]');
 var submitButton = document.querySelector('#submitButton');
-var assignmentList = document.querySelector(".assignmentList");
+var taskList = document.querySelector(".taskList");
 
 submitButton.addEventListener('click', addAssignment);
-assignmentList.addEventListener('click', deleteFinish);
+taskList.addEventListener('click', deleteFinish);
 document.addEventListener("DOMContentLoaded", getAssignments);
 
 class Homework {
@@ -18,30 +18,32 @@ class Homework {
 
 function addAssignment(event) {
     event.preventDefault();
-    let assignments;
-    assignments = checkLocal(assignments);
-    assignments.forEach(function (assignment) {
-        if (assignment.title === assignmentText.value && dateInput.value === assignment.date) {
-            alert("You have entered a duplicate assignment. Please change the title or date of the assignment.")
-            assignmentText.value = "";
+    let tasks;
+    tasks = checkLocal(tasks);
+    tasks.forEach(function (task) {
+        if (task.title === taskText.value && dateInput.value === task.date) {
+            alert("You have entered a duplicate task. Please change the name or date of the task.")
+            taskText.value = "";
             dateInput.value = null;
         }
     });
-    if (assignmentText.value != "" && dateInput.value != false) {
-        // Stop page from refreshing an create div that contains the assignment
+    if (taskText.value != "" && dateInput.value != false) {
+        // Stop page from refreshing an create div that contains the task
         var {
-            assignmentDiv,
+            taskDiv,
             checkButton,
             deleteButton,
-            assignmentTitle,
-            assignmentDate
+            taskTitle,
+            taskDate
         } = createElements();
         // append all the elements to their respective containers
 
-        addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
+        addElements(taskDiv, checkButton, deleteButton, taskTitle, taskDate);
         sortByDate();
-        assignmentText.value = "";
+        taskText.value = "";
         dateInput.value = null;
+    } else{
+        alert("Please fill in both the task name and task date fields.")
     }
 }
 
@@ -72,12 +74,12 @@ function deleteAnimation(item) {
 
 function doneAnimation(item) {
     item = item.parentElement;
-    let assignments;
-    assignments = checkLocal(assignments);
+    let tasks;
+    tasks = checkLocal(tasks);
     if (item.hasAttribute("id")) {
         item.removeAttribute("id");
         item.children[2].style.textDecoration = "none";
-        var assignmentIndex = item.children[2].innerText;
+        var taskIndex = item.children[2].innerText;
         item.addEventListener("transitionend", function () {
             item.children[0].innerHTML = "<i class='fas fa-check'></i>"
             item.children[0].setAttribute("id", "done-button")
@@ -86,10 +88,10 @@ function doneAnimation(item) {
 
         // item.children[0].removeAttributeNode(item.children[0].getAttribute("id"));
 
-        assignments.forEach(function (assignment) {
-            if (assignment.title === assignmentIndex) {
-                assignment.completionStatus = false;
-                item.children[3].innerText = "Due: " + dateFormat(assignment.date);
+        tasks.forEach(function (task) {
+            if (task.title === taskIndex) {
+                task.completionStatus = false;
+                item.children[3].innerText = "Due: " + dateFormat(task.date);
             }
         });
 
@@ -108,31 +110,31 @@ function doneAnimation(item) {
             item.children[0].innerHTML = "<i class='fas fa-arrow-left'></i>"
             item.children[0].setAttribute("id", "redo-button")
         })
-        var assignmentIndex = item.children[2].innerText;
-        assignments.forEach(function (assignment) {
-            if (assignment.title === assignmentIndex) {
-                assignment.completionStatus = true;
+        var taskIndex = item.children[2].innerText;
+        tasks.forEach(function (task) {
+            if (task.title === taskIndex) {
+                task.completionStatus = true;
             }
         });
     }
-    localStorage.setItem("assignments", JSON.stringify(assignments));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
     return item;
 }
 
 function createElements() {
-    var assignmentDiv = document.createElement("div");
-    assignmentDiv.classList.add("assignment");
-    // Create a list element with the assignment name
-    var assignmentTitle = document.createElement("li");
-    assignmentTitle.innerText = assignmentText.value;
+    var taskDiv = document.createElement("div");
+    taskDiv.classList.add("task");
+    // Create a list element with the task name
+    var taskTitle = document.createElement("li");
+    taskTitle.innerText = taskText.value;
 
     // Create a list element with the date 
-    var assignmentDate = document.createElement("li");
-    assignmentDate.classList.add("date");
-    assignmentDate.innerText = "Due: " + dateFormat(dateInput.value);
+    var taskDate = document.createElement("li");
+    taskDate.classList.add("date");
+    taskDate.innerText = "Due: " + dateFormat(dateInput.value);
 
     // Add items to localStorage
-    let temp = new Homework(assignmentText.value, dateInput.value);
+    let temp = new Homework(taskText.value, dateInput.value);
     saveLocal(temp);
 
     // create both the finish and delete buttons
@@ -143,58 +145,58 @@ function createElements() {
     deleteButton.innerHTML = "<i class='fas fa-times'></i>";
     deleteButton.classList.add("trash-button");
     return {
-        assignmentDiv,
+        taskDiv,
         checkButton,
         deleteButton,
-        assignmentTitle,
-        assignmentDate
+        taskTitle,
+        taskDate
     };
 }
 
-function addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate) {
-    assignmentDiv.appendChild(checkButton);
-    assignmentDiv.appendChild(deleteButton);
-    assignmentDiv.appendChild(assignmentTitle);
-    assignmentDiv.appendChild(assignmentDate);
-    assignmentList.appendChild(assignmentDiv);
+function addElements(taskDiv, checkButton, deleteButton, taskTitle, taskDate) {
+    taskDiv.appendChild(checkButton);
+    taskDiv.appendChild(deleteButton);
+    taskDiv.appendChild(taskTitle);
+    taskDiv.appendChild(taskDate);
+    taskList.appendChild(taskDiv);
 }
 
-function saveLocal(assignment) {
-    let assignments;
-    assignments = checkLocal(assignments);
-    assignments.push(assignment);
-    localStorage.setItem("assignments", JSON.stringify(assignments));
+function saveLocal(task) {
+    let tasks;
+    tasks = checkLocal(tasks);
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function removeAssignment(assignment) {
-    let assignments;
-    assignments = checkLocal(assignments);
-    var assignmentIndex = assignment.children[2].innerText;
-    assignments.forEach(function (assignment, index) {
-        if (assignment.title === assignmentIndex) {
-            assignmentIndex = index;
+function removeAssignment(task) {
+    let tasks;
+    tasks = checkLocal(tasks);
+    var taskIndex = task.children[2].innerText;
+    tasks.forEach(function (task, index) {
+        if (task.title === taskIndex) {
+            taskIndex = index;
         }
     });
-    assignments.splice(assignmentIndex, 1);
-    localStorage.setItem("assignments", JSON.stringify(assignments));
+    tasks.splice(taskIndex, 1);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 function getAssignments() {
-    var divClear = document.getElementsByClassName("assignmentList")[0];
+    var divClear = document.getElementsByClassName("taskList")[0];
     divClear.innerHTML = "";
-    let assignments;
-    assignments = checkLocal(assignments);
-    assignments.forEach(function (assignment) {
-        var assignmentDiv = document.createElement("div");
-        assignmentDiv.classList.add("assignment");
-        // Create a list element with the assignment name
-        var assignmentTitle = document.createElement("li");
-        assignmentTitle.innerText = assignment.title;
+    let tasks;
+    tasks = checkLocal(tasks);
+    tasks.forEach(function (task) {
+        var taskDiv = document.createElement("div");
+        taskDiv.classList.add("task");
+        // Create a list element with the task name
+        var taskTitle = document.createElement("li");
+        taskTitle.innerText = task.title;
 
         // Create a list element with the date 
-        var assignmentDate = document.createElement("li");
-        assignmentDate.classList.add("date");
-        assignmentDate.innerText = "Due: " + dateFormat(assignment.date);
+        var taskDate = document.createElement("li");
+        taskDate.classList.add("date");
+        taskDate.innerText = "Due: " + dateFormat(task.date);
 
         // create both the finish and delete buttons
         var checkButton = document.createElement("button");
@@ -204,28 +206,28 @@ function getAssignments() {
         deleteButton.innerHTML = "<i class='fas fa-times'></i>";
         deleteButton.classList.add("trash-button");
 
-        addElements(assignmentDiv, checkButton, deleteButton, assignmentTitle, assignmentDate);
-        if (assignment.completionStatus === true) {
-            assignmentDiv.setAttribute("id", 'completed');
-            assignmentDiv.children[2].style.textDecoration = "line-through";
-            assignmentDiv.children[3].innerText = "COMPLETED";
+        addElements(taskDiv, checkButton, deleteButton, taskTitle, taskDate);
+        if (task.completionStatus === true) {
+            taskDiv.setAttribute("id", 'completed');
+            taskDiv.children[2].style.textDecoration = "line-through";
+            taskDiv.children[3].innerText = "COMPLETED";
         }
     });
 }
 
-function checkLocal(assignments) {
-    if (localStorage.getItem("assignments") === null) {
-        assignments = [];
+function checkLocal(tasks) {
+    if (localStorage.getItem("tasks") === null) {
+        tasks = [];
     } else {
-        assignments = JSON.parse(localStorage.getItem("assignments"));
+        tasks = JSON.parse(localStorage.getItem("tasks"));
     }
-    return assignments;
+    return tasks;
 }
 
 function sortByDate() {
-    let assignments;
-    assignments = checkLocal(assignments);
-    assignments.sort(function (x, y) {
+    let tasks;
+    tasks = checkLocal(tasks);
+    tasks.sort(function (x, y) {
         if (x.date < y.date) {
             return -1;
         }
@@ -234,7 +236,7 @@ function sortByDate() {
         }
         return 0;
     });
-    localStorage.setItem("assignments", JSON.stringify(assignments));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
     getAssignments();
 }
 

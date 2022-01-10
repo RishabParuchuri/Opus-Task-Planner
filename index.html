@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Homework Planner</title>
+    <title>Opus Task Planner</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,12 +19,12 @@
     <div class="planner-container">
 
         <form onsubmit="test()">
-            <input type="text" placeholder="Enter Task" class="assignmentInput" id="assignmentText" required>
+            <input type="text" placeholder="Enter Task" class="taskInput" id="taskText" required>
             <button type="submit" id="submitButton">Submit</button>
-            <input type="date" class="assignmentInput" required><br>
+            <input type="date" class="taskInput" max="9999-12-31" required><br>
         </form>
-        <div class="assignment-container">
-            <ul class="assignmentList">
+        <div class="task-container">
+            <ul class="taskList">
 
             </ul>
         </div>
