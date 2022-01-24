@@ -42,7 +42,7 @@ function addAssignment(event) {
         sortByDate();
         taskText.value = "";
         dateInput.value = null;
-    } else{
+    } else {
         alert("Please fill in both the task name and task date fields.")
     }
 }
@@ -55,6 +55,11 @@ function deleteFinish(e) {
     }
 
     if (item.classList[0] === "done-button") {
+        item = doneAnimation(item);
+    }
+
+    if (item.classList[0] === "redo-button") {
+        checkButton.removeAttribute("id")
         item = doneAnimation(item);
     }
 }
@@ -200,8 +205,14 @@ function getAssignments() {
 
         // create both the finish and delete buttons
         var checkButton = document.createElement("button");
-        checkButton.innerHTML = "<i class='fas fa-check'></i>";
-        checkButton.classList.add("done-button");
+        if (task.completionStatus === true) {
+            checkButton.innerHTML = "<i class='fas fa-arrow-left'></i>"
+            checkButton.classList.add("redo-button");
+            checkButton.setAttribute("id", "redo-button")
+        } else {
+            checkButton.innerHTML = "<i class='fas fa-check'></i>";
+            checkButton.classList.add("done-button");
+        }
         var deleteButton = document.createElement("button");
         deleteButton.innerHTML = "<i class='fas fa-times'></i>";
         deleteButton.classList.add("trash-button");
