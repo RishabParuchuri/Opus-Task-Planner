@@ -1,5 +1,7 @@
 # 📝 Opus Task Planner – Chrome Extension
 
+Find here: [Opus Task Planner](https://chromewebstore.google.com/detail/opus-task-planner/fmonabognfjjojkbjlkklbnkjdeldaod?hl=en)
+
 A clean and minimal Chrome extension to manage and prioritize tasks directly in your browser — no login or setup required.
 
 ---
